@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import { BookPage } from './BookPage/BookPage';
+import { HomePage } from './HomePage/HomePage';
+import { SearchBook } from './SearchPage/SearchPage';
+import { SignUp } from './SignUp/SignUp';
+import { Header } from './Header/Header';
+import { Footer } from './Footer/Footer';
 
-function App() {
+
+
+function AppWithoutRouter() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{backgroundColor: "#e9e9e9"}}> 
+      <Header />
+        <Switch>
+          <Route path="/mylibrary/:id" component={BookPage} />
+          <Route path="/mylibrary-search" component={SearchBook} />
+          <Route path="/mylibrary-signup" component={SignUp} />
+          <Route path="/" exact component={HomePage} />
+          <Redirect to="/" />
+        </Switch>
+      <Footer />
     </div>
-  );
-}
+  )
+};
 
-export default App;
+const App = withRouter(AppWithoutRouter);
+
+export { App };
